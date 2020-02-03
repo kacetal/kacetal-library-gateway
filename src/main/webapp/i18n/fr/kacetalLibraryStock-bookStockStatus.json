@@ -1,0 +1,10 @@
+{
+  "kacetalLibraryGatewayApp": {
+    "BookStockStatus": {
+      "null": "",
+      "AVAILABLE": "AVAILABLE",
+      "OUT_OF_STOCK": "OUT_OF_STOCK",
+      "OUT_OF_BORROW": "OUT_OF_BORROW"
+    }
+  }
+}

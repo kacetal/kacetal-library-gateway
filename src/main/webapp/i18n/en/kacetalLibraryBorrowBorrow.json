@@ -1,0 +1,31 @@
+{
+  "kacetalLibraryGatewayApp": {
+    "kacetalLibraryBorrowBorrow": {
+      "home": {
+        "title": "Borrows",
+        "createLabel": "Create a new Borrow",
+        "createOrEditLabel": "Create or edit a Borrow",
+        "notFound": "No Borrows found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Borrow {{ id }}?"
+      },
+      "detail": {
+        "title": "Borrow"
+      },
+      "bookId": "Book Id",
+      "userId": "User Id",
+      "borrowDuration": "Borrow Duration",
+      "borrowStatus": "Borrow Status",
+      "notificationType": "Notification Type",
+      "prolonged": "Prolonged"
+    }
+  },
+  "kacetalLibraryBorrowApp": {
+    "kacetalLibraryBorrowBorrow": {
+      "created": "A new Borrow is created with identifier {{ param }}",
+      "updated": "A Borrow is updated with identifier {{ param }}",
+      "deleted": "A Borrow is deleted with identifier {{ param }}"
+    }
+  }
+}

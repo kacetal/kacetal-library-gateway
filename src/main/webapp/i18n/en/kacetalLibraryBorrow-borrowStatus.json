@@ -1,0 +1,13 @@
+{
+  "kacetalLibraryGatewayApp": {
+    "BorrowStatus": {
+      "null": "",
+      "EXPIRED": "EXPIRED",
+      "FINISHED": "FINISHED",
+      "PROLONGED": "PROLONGED",
+      "BORROWED": "BORROWED",
+      "STARTED": "STARTED",
+      "CANCELLED": "CANCELLED"
+    }
+  }
+}

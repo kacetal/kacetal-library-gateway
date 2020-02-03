@@ -1,0 +1,53 @@
+{
+    "name": "Notification",
+    "fields": [
+        {
+            "fieldName": "sentDate",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "format",
+            "fieldType": "NotificationType",
+            "fieldValues": "EMAIL,SMS,SITE,ALL",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "details",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "userId",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "bookId",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200203105311",
+    "entityTableName": "notification",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": [
+        "kacetalLibraryGateway",
+        "kacetalLibraryNotification"
+    ],
+    "microserviceName": "kacetalLibraryNotification"
+}

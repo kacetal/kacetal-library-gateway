@@ -1,0 +1,27 @@
+{
+  "kacetalLibraryGatewayApp": {
+    "kacetalLibraryBookPublisher": {
+      "home": {
+        "title": "Publishers",
+        "createLabel": "Créer un nouveau Publisher",
+        "createOrEditLabel": "Créer ou éditer un Publisher",
+        "notFound": "Aucun Publisher trouvé"
+      },
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Publisher {{ id }} ?"
+      },
+      "detail": {
+        "title": "Publisher"
+      },
+      "name": "Name",
+      "books": "Books"
+    }
+  },
+  "kacetalLibraryBookApp": {
+    "kacetalLibraryBookPublisher": {
+      "created": "Un nouveau Publisher a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Publisher avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Publisher avec l'identifiant {{ param }} a été supprimé"
+    }
+  }
+}

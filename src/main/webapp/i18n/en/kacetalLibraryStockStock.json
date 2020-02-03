@@ -1,0 +1,28 @@
+{
+  "kacetalLibraryGatewayApp": {
+    "kacetalLibraryStockStock": {
+      "home": {
+        "title": "Stocks",
+        "createLabel": "Create a new Stock",
+        "createOrEditLabel": "Create or edit a Stock",
+        "notFound": "No Stocks found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Stock {{ id }}?"
+      },
+      "detail": {
+        "title": "Stock"
+      },
+      "name": "Name",
+      "quantity": "Quantity",
+      "bookStockStatus": "Book Stock Status"
+    }
+  },
+  "kacetalLibraryStockApp": {
+    "kacetalLibraryStockStock": {
+      "created": "A new Stock is created with identifier {{ param }}",
+      "updated": "A Stock is updated with identifier {{ param }}",
+      "deleted": "A Stock is deleted with identifier {{ param }}"
+    }
+  }
+}

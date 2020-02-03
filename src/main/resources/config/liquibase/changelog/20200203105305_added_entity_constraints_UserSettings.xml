@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity UserSettings.
+    -->
+    <changeSet id="20200203105305-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="id"
+                                 baseTableName="user_settings"
+                                 constraintName="fk_user_settings_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_settings_id"
+                                 baseTableName="user_settings_addresses"
+                                 constraintName="fk_user_settings_addresses_user_settings_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user_settings"/>
+
+        <addForeignKeyConstraint baseColumnNames="addresses_id"
+                                 baseTableName="user_settings_addresses"
+                                 constraintName="fk_user_settings_addresses_addresses_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="address"/>
+        
+    </changeSet>
+</databaseChangeLog>

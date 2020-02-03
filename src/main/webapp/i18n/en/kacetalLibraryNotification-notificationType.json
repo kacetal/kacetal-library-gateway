@@ -1,0 +1,11 @@
+{
+  "kacetalLibraryGatewayApp": {
+    "NotificationType": {
+      "null": "",
+      "EMAIL": "EMAIL",
+      "SMS": "SMS",
+      "SITE": "SITE",
+      "ALL": "ALL"
+    }
+  }
+}
