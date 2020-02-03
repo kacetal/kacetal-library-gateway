@@ -1,5 +1,7 @@
 os:
   - linux
+jdk:
+  - openjdk12
 services:
   - docker
 language: node_js
@@ -19,13 +21,11 @@ env:
     - NG_CLI_ANALYTICS="false"
     - MAVEN_USER_HOME=$HOME/.m2/repository/
 before_install:
-  - echo '*** Using AdoptOpenJDK 12'
-  - sudo wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
-  - sudo apt-get install -y software-properties-common
-  - sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+  - echo '*** Using OpenJDK 12 by default'
+  - sudo add-apt-repository ppa:openjdk-r/ppa -y
   - sudo apt-get update -q
-  - sudo apt-get install -y adoptopenjdk-12-hotspot -y
-  - sudo update-java-alternatives -s adoptopenjdk-12-hotspot-amd64 --jre-headless -v
+  - sudo apt-get install -y openjdk-12-jdk -y
+  - sudo update-java-alternatives -s java-1.12.0-openjdk-amd64 -v
   - java -version
   - sudo /etc/init.d/mysql stop
   - sudo /etc/init.d/postgresql stop
