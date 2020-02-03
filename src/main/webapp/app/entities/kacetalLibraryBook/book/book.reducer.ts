@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import {ICrudDeleteAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction} from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
-import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import {cleanEntity} from 'app/shared/util/entity-utils';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
-import { IBook, defaultValue } from 'app/shared/model/kacetalLibraryBook/book.model';
+import {defaultValue, IBook} from 'app/shared/model/kacetalLibraryBook/book.model';
 
 export const ACTION_TYPES = {
   FETCH_BOOK_LIST: 'book/FETCH_BOOK_LIST',
@@ -90,7 +90,7 @@ export default (state: BookState = initialState, action): BookState => {
         entity: {}
       };
     case ACTION_TYPES.SET_BLOB: {
-      const { name, data, contentType } = action.payload;
+      const {name, data, contentType} = action.payload;
       return {
         ...state,
         entity: {

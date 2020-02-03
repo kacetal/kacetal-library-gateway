@@ -1,7 +1,6 @@
 package com.kacetal.library.gateway.service;
 
 import com.kacetal.library.gateway.domain.Address;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

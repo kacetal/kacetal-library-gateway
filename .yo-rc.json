@@ -6,7 +6,10 @@
     "enableSwaggerCodegen": false,
     "enableTranslation": true,
     "jhiPrefix": "jhi",
-    "languages": ["en", "fr"],
+    "languages": [
+      "en",
+      "fr"
+    ],
     "messageBroker": false,
     "nativeLanguage": "en",
     "packageName": "com.kacetal.library.gateway",
@@ -39,5 +42,14 @@
     "otherModules": [],
     "blueprints": []
   },
-  "entities": ["Address", "UserSettings", "Borrow", "Book", "Author", "Publisher", "Stock", "Notification"]
+  "entities": [
+    "Address",
+    "UserSettings",
+    "Borrow",
+    "Book",
+    "Author",
+    "Publisher",
+    "Stock",
+    "Notification"
+  ]
 }

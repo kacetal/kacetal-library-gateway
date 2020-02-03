@@ -1,4 +1,4 @@
-import { BookStockStatus } from 'app/shared/model/enumerations/book-stock-status.model';
+import {BookStockStatus} from 'app/shared/model/enumerations/book-stock-status.model';
 
 export interface IStock {
   id?: number;

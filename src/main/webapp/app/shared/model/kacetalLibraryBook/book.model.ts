@@ -1,6 +1,6 @@
-import { Moment } from 'moment';
-import { IAuthor } from 'app/shared/model/kacetalLibraryBook/author.model';
-import { IPublisher } from 'app/shared/model/kacetalLibraryBook/publisher.model';
+import {Moment} from 'moment';
+import {IAuthor} from 'app/shared/model/kacetalLibraryBook/author.model';
+import {IPublisher} from 'app/shared/model/kacetalLibraryBook/publisher.model';
 
 export interface IBook {
   id?: number;

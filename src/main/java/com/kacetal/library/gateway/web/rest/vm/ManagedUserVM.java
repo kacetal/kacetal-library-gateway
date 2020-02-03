@@ -1,6 +1,7 @@
 package com.kacetal.library.gateway.web.rest.vm;
 
 import com.kacetal.library.gateway.service.dto.UserDTO;
+
 import javax.validation.constraints.Size;
 
 /**

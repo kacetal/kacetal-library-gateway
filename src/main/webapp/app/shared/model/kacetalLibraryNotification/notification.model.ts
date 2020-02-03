@@ -1,5 +1,5 @@
-import { Moment } from 'moment';
-import { NotificationType } from 'app/shared/model/enumerations/notification-type.model';
+import {Moment} from 'moment';
+import {NotificationType} from 'app/shared/model/enumerations/notification-type.model';
 
 export interface INotification {
   id?: number;

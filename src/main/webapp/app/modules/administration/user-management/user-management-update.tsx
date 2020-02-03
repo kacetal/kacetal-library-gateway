@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Label, Row, Col } from 'reactstrap';
-import { AvForm, AvGroup, AvInput, AvField, AvFeedback } from 'availity-reactstrap-validation';
-import { Translate, translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Label, Row} from 'reactstrap';
+import {AvFeedback, AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { locales, languages } from 'app/config/translation';
-import { getUser, getRoles, updateUser, createUser, reset } from './user-management.reducer';
-import { IRootState } from 'app/shared/reducers';
+import {languages, locales} from 'app/config/translation';
+import {createUser, getRoles, getUser, reset, updateUser} from './user-management.reducer';
+import {IRootState} from 'app/shared/reducers';
 
-export interface IUserManagementUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ login: string }> {}
+export interface IUserManagementUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ login: string }> {
+}
 
 export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.login);
@@ -39,7 +40,7 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
   };
 
   const isInvalid = false;
-  const { user, loading, updating, roles } = props;
+  const {user, loading, updating, roles} = props;
 
   return (
     <div>
@@ -61,7 +62,7 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
                   <Label for="id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvField type="text" className="form-control" name="id" required readOnly value={user.id} />
+                  <AvField type="text" className="form-control" name="id" required readOnly value={user.id}/>
                 </AvGroup>
               ) : null}
               <AvGroup>
@@ -104,7 +105,7 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
                   validate={{
                     maxLength: {
                       value: 50,
-                      errorMessage: translate('entity.validation.maxlength', { max: 50 })
+                      errorMessage: translate('entity.validation.maxlength', {max: 50})
                     }
                   }}
                   value={user.firstName}
@@ -121,7 +122,7 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
                   validate={{
                     maxLength: {
                       value: 50,
-                      errorMessage: translate('entity.validation.maxlength', { max: 50 })
+                      errorMessage: translate('entity.validation.maxlength', {max: 50})
                     }
                   }}
                   value={user.lastName}
@@ -156,7 +157,7 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
               </AvGroup>
               <AvGroup check>
                 <Label>
-                  <AvInput type="checkbox" name="activated" value={user.activated} />{' '}
+                  <AvInput type="checkbox" name="activated" value={user.activated}/>{' '}
                   <Translate contentKey="userManagement.activated">Activated</Translate>
                 </Label>
               </AvGroup>
@@ -185,7 +186,7 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
                 </AvInput>
               </AvGroup>
               <Button tag={Link} to="/admin/user-management" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
@@ -193,7 +194,7 @@ export const UserManagementUpdate = (props: IUserManagementUpdateProps) => {
               </Button>
               &nbsp;
               <Button color="primary" type="submit" disabled={isInvalid || updating}>
-                <FontAwesomeIcon icon="save" />
+                <FontAwesomeIcon icon="save"/>
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>
@@ -212,7 +213,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   updating: storeState.userManagement.updating
 });
 
-const mapDispatchToProps = { getUser, getRoles, updateUser, createUser, reset };
+const mapDispatchToProps = {getUser, getRoles, updateUser, createUser, reset};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

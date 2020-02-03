@@ -1,4 +1,4 @@
-import { IBook } from 'app/shared/model/kacetalLibraryBook/book.model';
+import {IBook} from 'app/shared/model/kacetalLibraryBook/book.model';
 
 export interface IPublisher {
   id?: number;

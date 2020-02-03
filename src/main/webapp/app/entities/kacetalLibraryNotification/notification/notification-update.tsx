@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IRootState } from 'app/shared/reducers';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Label, Row} from 'reactstrap';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
 
-import { getEntity, updateEntity, createEntity, reset } from './notification.reducer';
-import { INotification } from 'app/shared/model/kacetalLibraryNotification/notification.model';
-import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
+import {createEntity, getEntity, reset, updateEntity} from './notification.reducer';
+import {convertDateTimeFromServer, convertDateTimeToServer} from 'app/shared/util/date-utils';
 
-export interface INotificationUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface INotificationUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const NotificationUpdate = (props: INotificationUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { notificationEntity, loading, updating } = props;
+  const {notificationEntity, loading, updating} = props;
 
   const handleClose = () => {
     props.history.push('/notification' + props.location.search);
@@ -59,7 +58,8 @@ export const NotificationUpdate = (props: INotificationUpdateProps) => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.home.createOrEditLabel">
-            <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.home.createOrEditLabel">
+            <Translate
+              contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.home.createOrEditLabel">
               Create or edit a Notification
             </Translate>
           </h2>
@@ -76,12 +76,13 @@ export const NotificationUpdate = (props: INotificationUpdateProps) => {
                   <Label for="notification-id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvInput id="notification-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput id="notification-id" type="text" className="form-control" name="id" required readOnly/>
                 </AvGroup>
               ) : null}
               <AvGroup>
                 <Label id="sentDateLabel" for="notification-sentDate">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.sentDate">Sent Date</Translate>
+                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.sentDate">Sent
+                    Date</Translate>
                 </Label>
                 <AvInput
                   id="notification-sentDate"
@@ -91,13 +92,14 @@ export const NotificationUpdate = (props: INotificationUpdateProps) => {
                   placeholder={'YYYY-MM-DD HH:mm'}
                   value={isNew ? null : convertDateTimeFromServer(props.notificationEntity.sentDate)}
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                    required: {value: true, errorMessage: translate('entity.validation.required')}
                   }}
                 />
               </AvGroup>
               <AvGroup>
                 <Label id="formatLabel" for="notification-format">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.format">Format</Translate>
+                  <Translate
+                    contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.format">Format</Translate>
                 </Label>
                 <AvInput
                   id="notification-format"
@@ -114,13 +116,15 @@ export const NotificationUpdate = (props: INotificationUpdateProps) => {
               </AvGroup>
               <AvGroup>
                 <Label id="detailsLabel" for="notification-details">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.details">Details</Translate>
+                  <Translate
+                    contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.details">Details</Translate>
                 </Label>
-                <AvField id="notification-details" type="text" name="details" />
+                <AvField id="notification-details" type="text" name="details"/>
               </AvGroup>
               <AvGroup>
                 <Label id="userIdLabel" for="notification-userId">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.userId">User Id</Translate>
+                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.userId">User
+                    Id</Translate>
                 </Label>
                 <AvField
                   id="notification-userId"
@@ -128,14 +132,15 @@ export const NotificationUpdate = (props: INotificationUpdateProps) => {
                   className="form-control"
                   name="userId"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    number: {value: true, errorMessage: translate('entity.validation.number')}
                   }}
                 />
               </AvGroup>
               <AvGroup>
                 <Label id="bookIdLabel" for="notification-bookId">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.bookId">Book Id</Translate>
+                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.bookId">Book
+                    Id</Translate>
                 </Label>
                 <AvField
                   id="notification-bookId"
@@ -143,13 +148,13 @@ export const NotificationUpdate = (props: INotificationUpdateProps) => {
                   className="form-control"
                   name="bookId"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    number: {value: true, errorMessage: translate('entity.validation.number')}
                   }}
                 />
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/notification" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
@@ -157,7 +162,7 @@ export const NotificationUpdate = (props: INotificationUpdateProps) => {
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
+                <FontAwesomeIcon icon="save"/>
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>

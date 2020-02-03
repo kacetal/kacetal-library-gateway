@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-import { Input, Row, Table } from 'reactstrap';
-import { Translate, TextFormat, JhiPagination, JhiItemCount, getSortState, IPaginationBaseState } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {RouteComponentProps} from 'react-router-dom';
+import {Input, Row, Table} from 'reactstrap';
+import {getSortState, JhiItemCount, JhiPagination, TextFormat, Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { APP_TIMESTAMP_FORMAT } from 'app/config/constants';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import {APP_TIMESTAMP_FORMAT} from 'app/config/constants';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
 
-import { IRootState } from 'app/shared/reducers';
-import { getAudits } from '../administration.reducer';
+import {IRootState} from 'app/shared/reducers';
+import {getAudits} from '../administration.reducer';
 
-export interface IAuditsPageProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
+export interface IAuditsPageProps extends StateProps, DispatchProps, RouteComponentProps<{}> {
+}
 
 const previousMonth = (): string => {
   const now: Date = new Date();
@@ -70,7 +71,7 @@ export const AuditsPage = (props: IAuditsPageProps) => {
     props.getAudits(pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`, fromDate, toDate);
   };
 
-  const { audits, totalItems } = props;
+  const {audits, totalItems} = props;
 
   return (
     <div>
@@ -78,44 +79,44 @@ export const AuditsPage = (props: IAuditsPageProps) => {
       <span>
         <Translate contentKey="audits.filter.from">from</Translate>
       </span>
-      <Input type="date" value={fromDate} onChange={onChangeFromDate} name="fromDate" id="fromDate" />
+      <Input type="date" value={fromDate} onChange={onChangeFromDate} name="fromDate" id="fromDate"/>
       <span>
         <Translate contentKey="audits.filter.to">to</Translate>
       </span>
-      <Input type="date" value={toDate} onChange={onChangeToDate} name="toDate" id="toDate" />
+      <Input type="date" value={toDate} onChange={onChangeToDate} name="toDate" id="toDate"/>
       {audits && audits.length > 0 ? (
         <Table striped responsive>
           <thead>
-            <tr>
-              <th onClick={sort('auditEventDate')}>
-                <Translate contentKey="audits.table.header.date">Date</Translate>
-                <FontAwesomeIcon icon="sort" />
-              </th>
-              <th onClick={sort('principal')}>
-                <Translate contentKey="audits.table.header.principal">User</Translate>
-                <FontAwesomeIcon icon="sort" />
-              </th>
-              <th onClick={sort('auditEventType')}>
-                <Translate contentKey="audits.table.header.status">State</Translate>
-                <FontAwesomeIcon icon="sort" />
-              </th>
-              <th>
-                <Translate contentKey="audits.table.header.data">Extra data</Translate>
-              </th>
-            </tr>
+          <tr>
+            <th onClick={sort('auditEventDate')}>
+              <Translate contentKey="audits.table.header.date">Date</Translate>
+              <FontAwesomeIcon icon="sort"/>
+            </th>
+            <th onClick={sort('principal')}>
+              <Translate contentKey="audits.table.header.principal">User</Translate>
+              <FontAwesomeIcon icon="sort"/>
+            </th>
+            <th onClick={sort('auditEventType')}>
+              <Translate contentKey="audits.table.header.status">State</Translate>
+              <FontAwesomeIcon icon="sort"/>
+            </th>
+            <th>
+              <Translate contentKey="audits.table.header.data">Extra data</Translate>
+            </th>
+          </tr>
           </thead>
           <tbody>
-            {audits.map((audit, i) => (
-              <tr key={`audit-${i}`}>
-                <td>{<TextFormat value={audit.timestamp} type="date" format={APP_TIMESTAMP_FORMAT} />}</td>
-                <td>{audit.principal}</td>
-                <td>{audit.type}</td>
-                <td>
-                  {audit.data ? audit.data.message : null}
-                  {audit.data ? audit.data.remoteAddress : null}
-                </td>
-              </tr>
-            ))}
+          {audits.map((audit, i) => (
+            <tr key={`audit-${i}`}>
+              <td>{<TextFormat value={audit.timestamp} type="date" format={APP_TIMESTAMP_FORMAT}/>}</td>
+              <td>{audit.principal}</td>
+              <td>{audit.type}</td>
+              <td>
+                {audit.data ? audit.data.message : null}
+                {audit.data ? audit.data.remoteAddress : null}
+              </td>
+            </tr>
+          ))}
           </tbody>
         </Table>
       ) : (
@@ -125,7 +126,8 @@ export const AuditsPage = (props: IAuditsPageProps) => {
       )}
       <div className={audits && audits.length > 0 ? '' : 'd-none'}>
         <Row className="justify-content-center">
-          <JhiItemCount page={pagination.activePage} total={totalItems} itemsPerPage={pagination.itemsPerPage} i18nEnabled />
+          <JhiItemCount page={pagination.activePage} total={totalItems} itemsPerPage={pagination.itemsPerPage}
+                        i18nEnabled/>
         </Row>
         <Row className="justify-content-center">
           <JhiPagination
@@ -146,7 +148,7 @@ const mapStateToProps = (storeState: IRootState) => ({
   totalItems: storeState.administration.totalItems
 });
 
-const mapDispatchToProps = { getAudits };
+const mapDispatchToProps = {getAudits};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

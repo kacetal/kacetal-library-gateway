@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import { Translate, ICrudGetAction, ICrudDeleteAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {RouteComponentProps} from 'react-router-dom';
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import {Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
+import {deleteEntity, getEntity} from './borrow.reducer';
 
-import { IBorrow } from 'app/shared/model/kacetalLibraryBorrow/borrow.model';
-import { IRootState } from 'app/shared/reducers';
-import { getEntity, deleteEntity } from './borrow.reducer';
-
-export interface IBorrowDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IBorrowDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const BorrowDeleteDialog = (props: IBorrowDeleteDialogProps) => {
   useEffect(() => {
@@ -30,25 +29,26 @@ export const BorrowDeleteDialog = (props: IBorrowDeleteDialogProps) => {
     props.deleteEntity(props.borrowEntity.id);
   };
 
-  const { borrowEntity } = props;
+  const {borrowEntity} = props;
   return (
     <Modal isOpen toggle={handleClose}>
       <ModalHeader toggle={handleClose}>
         <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
       </ModalHeader>
       <ModalBody id="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.delete.question">
-        <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.delete.question" interpolate={{ id: borrowEntity.id }}>
+        <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.delete.question"
+                   interpolate={{id: borrowEntity.id}}>
           Are you sure you want to delete this Borrow?
         </Translate>
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
-          <FontAwesomeIcon icon="ban" />
+          <FontAwesomeIcon icon="ban"/>
           &nbsp;
           <Translate contentKey="entity.action.cancel">Cancel</Translate>
         </Button>
         <Button id="jhi-confirm-delete-borrow" color="danger" onClick={confirmDelete}>
-          <FontAwesomeIcon icon="trash" />
+          <FontAwesomeIcon icon="trash"/>
           &nbsp;
           <Translate contentKey="entity.action.delete">Delete</Translate>
         </Button>
@@ -57,12 +57,12 @@ export const BorrowDeleteDialog = (props: IBorrowDeleteDialogProps) => {
   );
 };
 
-const mapStateToProps = ({ borrow }: IRootState) => ({
+const mapStateToProps = ({borrow}: IRootState) => ({
   borrowEntity: borrow.entity,
   updateSuccess: borrow.updateSuccess
 });
 
-const mapDispatchToProps = { getEntity, deleteEntity };
+const mapDispatchToProps = {getEntity, deleteEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

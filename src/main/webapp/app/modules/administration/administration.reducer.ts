@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
 
 export const ACTION_TYPES = {
   FETCH_GATEWAY_ROUTE: 'administration/FETCH_GATEWAY_ROUTE',
@@ -157,7 +157,7 @@ export const getLoggers = () => ({
 });
 
 export const changeLogLevel = (name, configuredLevel) => {
-  const body = { configuredLevel };
+  const body = {configuredLevel};
   return async dispatch => {
     await dispatch({
       type: ACTION_TYPES.FETCH_LOGS_CHANGE_LEVEL,

@@ -9,9 +9,14 @@ import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.post.SendResponseFilter;
 import springfox.documentation.swagger2.web.Swagger2Controller;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -26,6 +31,15 @@ public class SwaggerBasePathRewritingFilter extends SendResponseFilter {
 
     public SwaggerBasePathRewritingFilter() {
         super(new ZuulProperties());
+    }
+
+    public static byte[] gzipData(String content) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        PrintWriter gzip = new PrintWriter(new GZIPOutputStream(bos));
+        gzip.print(content);
+        gzip.flush();
+        gzip.close();
+        return bos.toByteArray();
     }
 
     @Override
@@ -75,7 +89,7 @@ public class SwaggerBasePathRewritingFilter extends SendResponseFilter {
             }
             String response = IOUtils.toString(responseDataStream, StandardCharsets.UTF_8);
             if (response != null) {
-                LinkedHashMap<String, Object> map = this.mapper.readValue(response, LinkedHashMap.class);
+                Map<String, Object> map = this.mapper.readValue(response, LinkedHashMap.class);
 
                 String basePath = requestUri.replace(Swagger2Controller.DEFAULT_URL, "");
                 map.put("basePath", basePath);
@@ -86,14 +100,5 @@ public class SwaggerBasePathRewritingFilter extends SendResponseFilter {
             log.error("Swagger-docs filter error", e);
         }
         return null;
-    }
-
-    public static byte[] gzipData(String content) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        PrintWriter gzip = new PrintWriter(new GZIPOutputStream(bos));
-        gzip.print(content);
-        gzip.flush();
-        gzip.close();
-        return bos.toByteArray();
     }
 }

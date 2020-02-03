@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } from 'react-jhipster';
+import {ICrudDeleteAction, ICrudGetAction, ICrudGetAllAction, ICrudPutAction} from 'react-jhipster';
 
-import { cleanEntity } from 'app/shared/util/entity-utils';
-import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import { IBorrow, defaultValue } from 'app/shared/model/kacetalLibraryBorrow/borrow.model';
+import {cleanEntity} from 'app/shared/util/entity-utils';
+import {FAILURE, REQUEST, SUCCESS} from 'app/shared/reducers/action-type.util';
+import {defaultValue, IBorrow} from 'app/shared/model/kacetalLibraryBorrow/borrow.model';
 
 export const ACTION_TYPES = {
   FETCH_BORROW_LIST: 'borrow/FETCH_BORROW_LIST',

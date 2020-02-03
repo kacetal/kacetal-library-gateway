@@ -1,4 +1,4 @@
-import { IUserSettings } from 'app/shared/model/user-settings.model';
+import {IUserSettings} from 'app/shared/model/user-settings.model';
 
 export interface IAddress {
   id?: number;

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
-                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
-    
+
     <!--
         Added the entity UserSettings.
     -->
@@ -16,16 +14,16 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="avatar" type="longblob">
-                <constraints nullable="true" />
+                <constraints nullable="true"/>
             </column>
             <column name="avatar_content_type" type="varchar(255)">
-                <constraints nullable="true" />
+                <constraints nullable="true"/>
             </column>
             <column name="mobile_phone" type="varchar(15)">
-                <constraints nullable="true" />
+                <constraints nullable="true"/>
             </column>
             <column name="borrow_limit" type="integer">
-                <constraints nullable="true" />
+                <constraints nullable="true"/>
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
@@ -43,7 +41,7 @@
         </createTable>
 
         <addPrimaryKey columnNames="user_settings_id, addresses_id" tableName="user_settings_addresses"/>
-        
+
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
 
@@ -57,9 +55,9 @@
     -->
     <changeSet id="20200203105305-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/user_settings.csv"
-                  separator=";"
-                  tableName="user_settings">
+                file="config/liquibase/fake-data/user_settings.csv"
+                separator=";"
+                tableName="user_settings">
             <column name="id" type="numeric"/>
             <column name="avatar" type="blob"/>
             <column name="avatar_content_type" type="string"/>

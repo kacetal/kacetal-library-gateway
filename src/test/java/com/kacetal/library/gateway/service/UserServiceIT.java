@@ -5,9 +5,7 @@ import com.kacetal.library.gateway.config.Constants;
 import com.kacetal.library.gateway.domain.User;
 import com.kacetal.library.gateway.repository.UserRepository;
 import com.kacetal.library.gateway.service.dto.UserDTO;
-
 import io.github.jhipster.security.RandomUtil;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,10 +19,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -44,7 +42,7 @@ public class UserServiceIT {
 
     private static final String DEFAULT_LASTNAME = "doe";
 
-    private static final String DEFAULT_IMAGEURL = "http://placehold.it/50x50";
+    private static final String DEFAULT_IMAGEURL = "https://placehold.it/50x50";
 
     private static final String DEFAULT_LANGKEY = "dummy";
 
@@ -135,9 +133,9 @@ public class UserServiceIT {
     @Test
     @Transactional
     public void assertThatUserCanResetPassword() {
-        String oldPassword = user.getPassword();
-        Instant daysAgo = Instant.now().minus(2, ChronoUnit.HOURS);
-        String resetKey = RandomUtil.generateResetKey();
+        final String oldPassword = user.getPassword();
+        final Instant daysAgo = Instant.now().minus(2, ChronoUnit.HOURS);
+        final String resetKey = RandomUtil.generateResetKey();
         user.setActivated(true);
         user.setResetDate(daysAgo);
         user.setResetKey(resetKey);

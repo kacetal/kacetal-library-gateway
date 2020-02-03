@@ -1,7 +1,6 @@
 package com.kacetal.library.gateway.service;
 
 import com.kacetal.library.gateway.domain.UserSettings;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -34,7 +33,7 @@ public interface UserSettingsService {
      * @return the list of entities.
      */
     Page<UserSettings> findAllWithEagerRelationships(Pageable pageable);
-    
+
     /**
      * Get the "id" userSettings.
      *

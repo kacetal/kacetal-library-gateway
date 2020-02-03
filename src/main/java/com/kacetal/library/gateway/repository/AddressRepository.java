@@ -1,7 +1,7 @@
 package com.kacetal.library.gateway.repository;
 
 import com.kacetal.library.gateway.domain.Address;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 

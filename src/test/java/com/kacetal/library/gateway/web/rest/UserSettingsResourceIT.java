@@ -1,12 +1,11 @@
 package com.kacetal.library.gateway.web.rest;
 
 import com.kacetal.library.gateway.KacetalLibraryGatewayApp;
-import com.kacetal.library.gateway.domain.UserSettings;
 import com.kacetal.library.gateway.domain.User;
+import com.kacetal.library.gateway.domain.UserSettings;
 import com.kacetal.library.gateway.repository.UserSettingsRepository;
 import com.kacetal.library.gateway.service.UserSettingsService;
 import com.kacetal.library.gateway.web.rest.errors.ExceptionTranslator;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -14,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -31,9 +29,17 @@ import java.util.List;
 import static com.kacetal.library.gateway.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Integration tests for the {@link UserSettingsResource} REST controller.
@@ -97,7 +103,7 @@ public class UserSettingsResourceIT {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -114,9 +120,10 @@ public class UserSettingsResourceIT {
         userSettings.setUser(user);
         return userSettings;
     }
+
     /**
      * Create an updated entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -142,7 +149,7 @@ public class UserSettingsResourceIT {
     @Test
     @Transactional
     public void createUserSettings() throws Exception {
-        int databaseSizeBeforeCreate = userSettingsRepository.findAll().size();
+        final int databaseSizeBeforeCreate = userSettingsRepository.findAll().size();
 
         // Create the UserSettings
         restUserSettingsMockMvc.perform(post("/api/user-settings")
@@ -166,7 +173,7 @@ public class UserSettingsResourceIT {
     @Test
     @Transactional
     public void createUserSettingsWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = userSettingsRepository.findAll().size();
+        final int databaseSizeBeforeCreate = userSettingsRepository.findAll().size();
 
         // Create the UserSettings with an existing ID
         userSettings.setId(1L);
@@ -187,7 +194,7 @@ public class UserSettingsResourceIT {
     public void updateUserSettingsMapsIdAssociationWithNewId() throws Exception {
         // Initialize the database
         userSettingsService.save(userSettings);
-        int databaseSizeBeforeCreate = userSettingsRepository.findAll().size();
+        final int databaseSizeBeforeCreate = userSettingsRepository.findAll().size();
 
         // Add a new parent entity
         User user = UserResourceIT.createEntity(em);
@@ -235,7 +242,7 @@ public class UserSettingsResourceIT {
             .andExpect(jsonPath("$.[*].mobilePhone").value(hasItem(DEFAULT_MOBILE_PHONE)))
             .andExpect(jsonPath("$.[*].borrowLimit").value(hasItem(DEFAULT_BORROW_LIMIT)));
     }
-    
+
     @SuppressWarnings({"unchecked"})
     public void getAllUserSettingsWithEagerRelationshipsIsEnabled() throws Exception {
         UserSettingsResource userSettingsResource = new UserSettingsResource(userSettingsServiceMock);
@@ -248,7 +255,7 @@ public class UserSettingsResourceIT {
             .setMessageConverters(jacksonMessageConverter).build();
 
         restUserSettingsMockMvc.perform(get("/api/user-settings?eagerload=true"))
-        .andExpect(status().isOk());
+            .andExpect(status().isOk());
 
         verify(userSettingsServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
@@ -256,17 +263,17 @@ public class UserSettingsResourceIT {
     @SuppressWarnings({"unchecked"})
     public void getAllUserSettingsWithEagerRelationshipsIsNotEnabled() throws Exception {
         UserSettingsResource userSettingsResource = new UserSettingsResource(userSettingsServiceMock);
-            when(userSettingsServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-            MockMvc restUserSettingsMockMvc = MockMvcBuilders.standaloneSetup(userSettingsResource)
+        when(userSettingsServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        MockMvc restUserSettingsMockMvc = MockMvcBuilders.standaloneSetup(userSettingsResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
 
         restUserSettingsMockMvc.perform(get("/api/user-settings?eagerload=true"))
-        .andExpect(status().isOk());
+            .andExpect(status().isOk());
 
-            verify(userSettingsServiceMock, times(1)).findAllWithEagerRelationships(any());
+        verify(userSettingsServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
@@ -300,7 +307,7 @@ public class UserSettingsResourceIT {
         // Initialize the database
         userSettingsService.save(userSettings);
 
-        int databaseSizeBeforeUpdate = userSettingsRepository.findAll().size();
+        final int databaseSizeBeforeUpdate = userSettingsRepository.findAll().size();
 
         // Update the userSettings
         UserSettings updatedUserSettings = userSettingsRepository.findById(userSettings.getId()).get();

@@ -1,4 +1,4 @@
-import { BorrowStatus } from 'app/shared/model/enumerations/borrow-status.model';
+import {BorrowStatus} from 'app/shared/model/enumerations/borrow-status.model';
 
 export interface IBorrow {
   id?: number;

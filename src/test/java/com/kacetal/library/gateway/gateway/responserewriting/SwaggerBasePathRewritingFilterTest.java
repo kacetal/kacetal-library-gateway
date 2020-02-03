@@ -12,7 +12,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.zip.GZIPInputStream;
 
 import static com.kacetal.library.gateway.gateway.responserewriting.SwaggerBasePathRewritingFilter.gzipData;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static springfox.documentation.swagger2.web.Swagger2Controller.DEFAULT_URL;
 
 /**

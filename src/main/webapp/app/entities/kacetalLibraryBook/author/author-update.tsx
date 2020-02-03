@@ -1,26 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IRootState } from 'app/shared/reducers';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Label, Row} from 'reactstrap';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
+import {getEntities as getBooks} from 'app/entities/kacetalLibraryBook/book/book.reducer';
+import {createEntity, getEntity, reset, updateEntity} from './author.reducer';
 
-import { IBook } from 'app/shared/model/kacetalLibraryBook/book.model';
-import { getEntities as getBooks } from 'app/entities/kacetalLibraryBook/book/book.reducer';
-import { getEntity, updateEntity, createEntity, reset } from './author.reducer';
-import { IAuthor } from 'app/shared/model/kacetalLibraryBook/author.model';
-import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
-
-export interface IAuthorUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IAuthorUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const AuthorUpdate = (props: IAuthorUpdateProps) => {
   const [booksId, setBooksId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { authorEntity, books, loading, updating } = props;
+  const {authorEntity, books, loading, updating} = props;
 
   const handleClose = () => {
     props.history.push('/author' + props.location.search);
@@ -79,52 +75,55 @@ export const AuthorUpdate = (props: IAuthorUpdateProps) => {
                   <Label for="author-id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvInput id="author-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput id="author-id" type="text" className="form-control" name="id" required readOnly/>
                 </AvGroup>
               ) : null}
               <AvGroup>
                 <Label id="firstNameLabel" for="author-firstName">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBookAuthor.firstName">First Name</Translate>
+                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBookAuthor.firstName">First
+                    Name</Translate>
                 </Label>
                 <AvField
                   id="author-firstName"
                   type="text"
                   name="firstName"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    maxLength: { value: 50, errorMessage: translate('entity.validation.maxlength', { max: 50 }) }
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    maxLength: {value: 50, errorMessage: translate('entity.validation.maxlength', {max: 50})}
                   }}
                 />
               </AvGroup>
               <AvGroup>
                 <Label id="lastNameLabel" for="author-lastName">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBookAuthor.lastName">Last Name</Translate>
+                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBookAuthor.lastName">Last
+                    Name</Translate>
                 </Label>
                 <AvField
                   id="author-lastName"
                   type="text"
                   name="lastName"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    maxLength: { value: 50, errorMessage: translate('entity.validation.maxlength', { max: 50 }) }
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    maxLength: {value: 50, errorMessage: translate('entity.validation.maxlength', {max: 50})}
                   }}
                 />
               </AvGroup>
               <AvGroup>
                 <Label id="pseudonymLabel" for="author-pseudonym">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBookAuthor.pseudonym">Pseudonym</Translate>
+                  <Translate
+                    contentKey="kacetalLibraryGatewayApp.kacetalLibraryBookAuthor.pseudonym">Pseudonym</Translate>
                 </Label>
                 <AvField
                   id="author-pseudonym"
                   type="text"
                   name="pseudonym"
                   validate={{
-                    maxLength: { value: 50, errorMessage: translate('entity.validation.maxlength', { max: 50 }) }
+                    maxLength: {value: 50, errorMessage: translate('entity.validation.maxlength', {max: 50})}
                   }}
                 />
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/author" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
@@ -132,7 +131,7 @@ export const AuthorUpdate = (props: IAuthorUpdateProps) => {
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
+                <FontAwesomeIcon icon="save"/>
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>

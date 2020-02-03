@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import { Translate, ICrudGetAction, ICrudDeleteAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {RouteComponentProps} from 'react-router-dom';
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import {Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
+import {deleteEntity, getEntity} from './address.reducer';
 
-import { IAddress } from 'app/shared/model/address.model';
-import { IRootState } from 'app/shared/reducers';
-import { getEntity, deleteEntity } from './address.reducer';
-
-export interface IAddressDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IAddressDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const AddressDeleteDialog = (props: IAddressDeleteDialogProps) => {
   useEffect(() => {
@@ -30,25 +29,25 @@ export const AddressDeleteDialog = (props: IAddressDeleteDialogProps) => {
     props.deleteEntity(props.addressEntity.id);
   };
 
-  const { addressEntity } = props;
+  const {addressEntity} = props;
   return (
     <Modal isOpen toggle={handleClose}>
       <ModalHeader toggle={handleClose}>
         <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
       </ModalHeader>
       <ModalBody id="kacetalLibraryGatewayApp.address.delete.question">
-        <Translate contentKey="kacetalLibraryGatewayApp.address.delete.question" interpolate={{ id: addressEntity.id }}>
+        <Translate contentKey="kacetalLibraryGatewayApp.address.delete.question" interpolate={{id: addressEntity.id}}>
           Are you sure you want to delete this Address?
         </Translate>
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
-          <FontAwesomeIcon icon="ban" />
+          <FontAwesomeIcon icon="ban"/>
           &nbsp;
           <Translate contentKey="entity.action.cancel">Cancel</Translate>
         </Button>
         <Button id="jhi-confirm-delete-address" color="danger" onClick={confirmDelete}>
-          <FontAwesomeIcon icon="trash" />
+          <FontAwesomeIcon icon="trash"/>
           &nbsp;
           <Translate contentKey="entity.action.delete">Delete</Translate>
         </Button>
@@ -57,12 +56,12 @@ export const AddressDeleteDialog = (props: IAddressDeleteDialogProps) => {
   );
 };
 
-const mapStateToProps = ({ address }: IRootState) => ({
+const mapStateToProps = ({address}: IRootState) => ({
   addressEntity: address.entity,
   updateSuccess: address.updateSuccess
 });
 
-const mapDispatchToProps = { getEntity, deleteEntity };
+const mapDispatchToProps = {getEntity, deleteEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

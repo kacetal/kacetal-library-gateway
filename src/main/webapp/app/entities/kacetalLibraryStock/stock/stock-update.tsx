@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IRootState } from 'app/shared/reducers';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Label, Row} from 'reactstrap';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
 
-import { getEntity, updateEntity, createEntity, reset } from './stock.reducer';
-import { IStock } from 'app/shared/model/kacetalLibraryStock/stock.model';
-import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
+import {createEntity, getEntity, reset, updateEntity} from './stock.reducer';
 
-export interface IStockUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IStockUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const StockUpdate = (props: IStockUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { stockEntity, loading, updating } = props;
+  const {stockEntity, loading, updating} = props;
 
   const handleClose = () => {
     props.history.push('/stock' + props.location.search);
@@ -74,7 +72,7 @@ export const StockUpdate = (props: IStockUpdateProps) => {
                   <Label for="stock-id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvInput id="stock-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput id="stock-id" type="text" className="form-control" name="id" required readOnly/>
                 </AvGroup>
               ) : null}
               <AvGroup>
@@ -86,14 +84,15 @@ export const StockUpdate = (props: IStockUpdateProps) => {
                   type="text"
                   name="name"
                   validate={{
-                    minLength: { value: 2, errorMessage: translate('entity.validation.minlength', { min: 2 }) },
-                    maxLength: { value: 50, errorMessage: translate('entity.validation.maxlength', { max: 50 }) }
+                    minLength: {value: 2, errorMessage: translate('entity.validation.minlength', {min: 2})},
+                    maxLength: {value: 50, errorMessage: translate('entity.validation.maxlength', {max: 50})}
                   }}
                 />
               </AvGroup>
               <AvGroup>
                 <Label id="quantityLabel" for="stock-quantity">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryStockStock.quantity">Quantity</Translate>
+                  <Translate
+                    contentKey="kacetalLibraryGatewayApp.kacetalLibraryStockStock.quantity">Quantity</Translate>
                 </Label>
                 <AvField
                   id="stock-quantity"
@@ -101,15 +100,16 @@ export const StockUpdate = (props: IStockUpdateProps) => {
                   className="form-control"
                   name="quantity"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) },
-                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    min: {value: 0, errorMessage: translate('entity.validation.min', {min: 0})},
+                    number: {value: true, errorMessage: translate('entity.validation.number')}
                   }}
                 />
               </AvGroup>
               <AvGroup>
                 <Label id="bookStockStatusLabel" for="stock-bookStockStatus">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryStockStock.bookStockStatus">Book Stock Status</Translate>
+                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryStockStock.bookStockStatus">Book Stock
+                    Status</Translate>
                 </Label>
                 <AvInput
                   id="stock-bookStockStatus"
@@ -119,12 +119,14 @@ export const StockUpdate = (props: IStockUpdateProps) => {
                   value={(!isNew && stockEntity.bookStockStatus) || 'AVAILABLE'}
                 >
                   <option value="AVAILABLE">{translate('kacetalLibraryGatewayApp.BookStockStatus.AVAILABLE')}</option>
-                  <option value="OUT_OF_STOCK">{translate('kacetalLibraryGatewayApp.BookStockStatus.OUT_OF_STOCK')}</option>
-                  <option value="OUT_OF_BORROW">{translate('kacetalLibraryGatewayApp.BookStockStatus.OUT_OF_BORROW')}</option>
+                  <option
+                    value="OUT_OF_STOCK">{translate('kacetalLibraryGatewayApp.BookStockStatus.OUT_OF_STOCK')}</option>
+                  <option
+                    value="OUT_OF_BORROW">{translate('kacetalLibraryGatewayApp.BookStockStatus.OUT_OF_BORROW')}</option>
                 </AvInput>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/stock" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
@@ -132,7 +134,7 @@ export const StockUpdate = (props: IStockUpdateProps) => {
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
+                <FontAwesomeIcon icon="save"/>
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>

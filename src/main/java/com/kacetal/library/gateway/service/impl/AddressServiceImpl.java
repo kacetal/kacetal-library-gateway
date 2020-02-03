@@ -1,11 +1,10 @@
 package com.kacetal.library.gateway.service.impl;
 
-import com.kacetal.library.gateway.service.AddressService;
 import com.kacetal.library.gateway.domain.Address;
 import com.kacetal.library.gateway.repository.AddressRepository;
+import com.kacetal.library.gateway.service.AddressService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

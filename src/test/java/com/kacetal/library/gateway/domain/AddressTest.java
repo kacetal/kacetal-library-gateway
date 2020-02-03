@@ -1,8 +1,9 @@
 package com.kacetal.library.gateway.domain;
 
-import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
 import com.kacetal.library.gateway.web.rest.TestUtil;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class AddressTest {
 

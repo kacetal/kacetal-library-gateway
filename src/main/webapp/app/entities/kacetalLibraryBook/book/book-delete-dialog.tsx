@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import { Translate, ICrudGetAction, ICrudDeleteAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import {RouteComponentProps} from 'react-router-dom';
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'reactstrap';
+import {Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
+import {deleteEntity, getEntity} from './book.reducer';
 
-import { IBook } from 'app/shared/model/kacetalLibraryBook/book.model';
-import { IRootState } from 'app/shared/reducers';
-import { getEntity, deleteEntity } from './book.reducer';
-
-export interface IBookDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IBookDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const BookDeleteDialog = (props: IBookDeleteDialogProps) => {
   useEffect(() => {
@@ -30,25 +29,26 @@ export const BookDeleteDialog = (props: IBookDeleteDialogProps) => {
     props.deleteEntity(props.bookEntity.id);
   };
 
-  const { bookEntity } = props;
+  const {bookEntity} = props;
   return (
     <Modal isOpen toggle={handleClose}>
       <ModalHeader toggle={handleClose}>
         <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
       </ModalHeader>
       <ModalBody id="kacetalLibraryGatewayApp.kacetalLibraryBookBook.delete.question">
-        <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBookBook.delete.question" interpolate={{ id: bookEntity.id }}>
+        <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBookBook.delete.question"
+                   interpolate={{id: bookEntity.id}}>
           Are you sure you want to delete this Book?
         </Translate>
       </ModalBody>
       <ModalFooter>
         <Button color="secondary" onClick={handleClose}>
-          <FontAwesomeIcon icon="ban" />
+          <FontAwesomeIcon icon="ban"/>
           &nbsp;
           <Translate contentKey="entity.action.cancel">Cancel</Translate>
         </Button>
         <Button id="jhi-confirm-delete-book" color="danger" onClick={confirmDelete}>
-          <FontAwesomeIcon icon="trash" />
+          <FontAwesomeIcon icon="trash"/>
           &nbsp;
           <Translate contentKey="entity.action.delete">Delete</Translate>
         </Button>
@@ -57,12 +57,12 @@ export const BookDeleteDialog = (props: IBookDeleteDialogProps) => {
   );
 };
 
-const mapStateToProps = ({ book }: IRootState) => ({
+const mapStateToProps = ({book}: IRootState) => ({
   bookEntity: book.entity,
   updateSuccess: book.updateSuccess
 });
 
-const mapDispatchToProps = { getEntity, deleteEntity };
+const mapDispatchToProps = {getEntity, deleteEntity};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

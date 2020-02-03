@@ -1,31 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, setFileData, openFile, byteSize, ICrudPutAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IRootState } from 'app/shared/reducers';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Label, Row} from 'reactstrap';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {byteSize, openFile, setFileData, translate, Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
+import {getUsers} from 'app/modules/administration/user-management/user-management.reducer';
+import {getEntities as getAddresses} from 'app/entities/address/address.reducer';
+import {createEntity, getEntity, reset, setBlob, updateEntity} from './user-settings.reducer';
+import {mapIdList} from 'app/shared/util/entity-utils';
 
-import { IUser } from 'app/shared/model/user.model';
-import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
-import { IAddress } from 'app/shared/model/address.model';
-import { getEntities as getAddresses } from 'app/entities/address/address.reducer';
-import { getEntity, updateEntity, createEntity, setBlob, reset } from './user-settings.reducer';
-import { IUserSettings } from 'app/shared/model/user-settings.model';
-import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
-
-export interface IUserSettingsUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IUserSettingsUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const UserSettingsUpdate = (props: IUserSettingsUpdateProps) => {
   const [idsaddresses, setIdsaddresses] = useState([]);
   const [userId, setUserId] = useState('0');
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { userSettingsEntity, users, addresses, loading, updating } = props;
+  const {userSettingsEntity, users, addresses, loading, updating} = props;
 
-  const { avatar, avatarContentType } = userSettingsEntity;
+  const {avatar, avatarContentType} = userSettingsEntity;
 
   const handleClose = () => {
     props.history.push('/user-settings' + props.location.search);
@@ -77,7 +73,8 @@ export const UserSettingsUpdate = (props: IUserSettingsUpdateProps) => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="kacetalLibraryGatewayApp.userSettings.home.createOrEditLabel">
-            <Translate contentKey="kacetalLibraryGatewayApp.userSettings.home.createOrEditLabel">Create or edit a UserSettings</Translate>
+            <Translate contentKey="kacetalLibraryGatewayApp.userSettings.home.createOrEditLabel">Create or edit a
+              UserSettings</Translate>
           </h2>
         </Col>
       </Row>
@@ -92,7 +89,7 @@ export const UserSettingsUpdate = (props: IUserSettingsUpdateProps) => {
                   <Label for="user-settings-id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvInput id="user-settings-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput id="user-settings-id" type="text" className="form-control" name="id" required readOnly/>
                 </AvGroup>
               ) : null}
               <AvGroup>
@@ -100,13 +97,13 @@ export const UserSettingsUpdate = (props: IUserSettingsUpdateProps) => {
                   <Label id="avatarLabel" for="avatar">
                     <Translate contentKey="kacetalLibraryGatewayApp.userSettings.avatar">Avatar</Translate>
                   </Label>
-                  <br />
+                  <br/>
                   {avatar ? (
                     <div>
                       <a onClick={openFile(avatarContentType, avatar)}>
-                        <img src={`data:${avatarContentType};base64,${avatar}`} style={{ maxHeight: '100px' }} />
+                        <img src={`data:${avatarContentType};base64,${avatar}`} style={{maxHeight: '100px'}}/>
                       </a>
-                      <br />
+                      <br/>
                       <Row>
                         <Col md="11">
                           <span>
@@ -115,14 +112,14 @@ export const UserSettingsUpdate = (props: IUserSettingsUpdateProps) => {
                         </Col>
                         <Col md="1">
                           <Button color="danger" onClick={clearBlob('avatar')}>
-                            <FontAwesomeIcon icon="times-circle" />
+                            <FontAwesomeIcon icon="times-circle"/>
                           </Button>
                         </Col>
                       </Row>
                     </div>
                   ) : null}
-                  <input id="file_avatar" type="file" onChange={onBlobChange(true, 'avatar')} accept="image/*" />
-                  <AvInput type="hidden" name="avatar" value={avatar} />
+                  <input id="file_avatar" type="file" onChange={onBlobChange(true, 'avatar')} accept="image/*"/>
+                  <AvInput type="hidden" name="avatar" value={avatar}/>
                 </AvGroup>
               </AvGroup>
               <AvGroup>
@@ -134,7 +131,7 @@ export const UserSettingsUpdate = (props: IUserSettingsUpdateProps) => {
                   type="text"
                   name="mobilePhone"
                   validate={{
-                    maxLength: { value: 15, errorMessage: translate('entity.validation.maxlength', { max: 15 }) }
+                    maxLength: {value: 15, errorMessage: translate('entity.validation.maxlength', {max: 15})}
                   }}
                 />
               </AvGroup>
@@ -142,20 +139,20 @@ export const UserSettingsUpdate = (props: IUserSettingsUpdateProps) => {
                 <Label id="borrowLimitLabel" for="user-settings-borrowLimit">
                   <Translate contentKey="kacetalLibraryGatewayApp.userSettings.borrowLimit">Borrow Limit</Translate>
                 </Label>
-                <AvField id="user-settings-borrowLimit" type="string" className="form-control" name="borrowLimit" />
+                <AvField id="user-settings-borrowLimit" type="string" className="form-control" name="borrowLimit"/>
               </AvGroup>
               <AvGroup>
                 <Label for="user-settings-user">
                   <Translate contentKey="kacetalLibraryGatewayApp.userSettings.user">User</Translate>
                 </Label>
                 <AvInput id="user-settings-user" type="select" className="form-control" name="user.id">
-                  <option value="" key="0" />
+                  <option value="" key="0"/>
                   {users
                     ? users.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
                     : null}
                 </AvInput>
               </AvGroup>
@@ -171,18 +168,18 @@ export const UserSettingsUpdate = (props: IUserSettingsUpdateProps) => {
                   name="addresses"
                   value={userSettingsEntity.addresses && userSettingsEntity.addresses.map(e => e.id)}
                 >
-                  <option value="" key="0" />
+                  <option value="" key="0"/>
                   {addresses
                     ? addresses.map(otherEntity => (
-                        <option value={otherEntity.id} key={otherEntity.id}>
-                          {otherEntity.id}
-                        </option>
-                      ))
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
                     : null}
                 </AvInput>
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/user-settings" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
@@ -190,7 +187,7 @@ export const UserSettingsUpdate = (props: IUserSettingsUpdateProps) => {
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
+                <FontAwesomeIcon icon="save"/>
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Col, Row, Table } from 'reactstrap';
-import { Translate, ICrudGetAllAction, TextFormat, getSortState, IPaginationBaseState, JhiPagination, JhiItemCount } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Row, Table} from 'reactstrap';
+import {getSortState, JhiItemCount, JhiPagination, TextFormat, Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
-import { getEntities } from './notification.reducer';
-import { INotification } from 'app/shared/model/kacetalLibraryNotification/notification.model';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
+import {IRootState} from 'app/shared/reducers';
+import {getEntities} from './notification.reducer';
+import {APP_DATE_FORMAT} from 'app/config/constants';
+import {ITEMS_PER_PAGE} from 'app/shared/util/pagination.constants';
 
-export interface INotificationProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
+export interface INotificationProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {
+}
 
 export const Notification = (props: INotificationProps) => {
   const [paginationState, setPaginationState] = useState(getSortState(props.location, ITEMS_PER_PAGE));
@@ -49,13 +49,14 @@ export const Notification = (props: INotificationProps) => {
       activePage: currentPage
     });
 
-  const { notificationList, match, totalItems } = props;
+  const {notificationList, match, totalItems} = props;
   return (
     <div>
       <h2 id="notification-heading">
-        <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.home.title">Notifications</Translate>
+        <Translate
+          contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.home.title">Notifications</Translate>
         <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-          <FontAwesomeIcon icon="plus" />
+          <FontAwesomeIcon icon="plus"/>
           &nbsp;
           <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.home.createLabel">
             Create new Notification
@@ -66,84 +67,89 @@ export const Notification = (props: INotificationProps) => {
         {notificationList && notificationList.length > 0 ? (
           <Table responsive>
             <thead>
-              <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('sentDate')}>
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.sentDate">Sent Date</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('format')}>
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.format">Format</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('details')}>
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.details">Details</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('userId')}>
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.userId">User Id</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th className="hand" onClick={sort('bookId')}>
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.bookId">Book Id</Translate>{' '}
-                  <FontAwesomeIcon icon="sort" />
-                </th>
-                <th />
-              </tr>
+            <tr>
+              <th className="hand" onClick={sort('id')}>
+                <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort"/>
+              </th>
+              <th className="hand" onClick={sort('sentDate')}>
+                <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.sentDate">Sent
+                  Date</Translate>{' '}
+                <FontAwesomeIcon icon="sort"/>
+              </th>
+              <th className="hand" onClick={sort('format')}>
+                <Translate
+                  contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.format">Format</Translate>{' '}
+                <FontAwesomeIcon icon="sort"/>
+              </th>
+              <th className="hand" onClick={sort('details')}>
+                <Translate
+                  contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.details">Details</Translate>{' '}
+                <FontAwesomeIcon icon="sort"/>
+              </th>
+              <th className="hand" onClick={sort('userId')}>
+                <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.userId">User
+                  Id</Translate>{' '}
+                <FontAwesomeIcon icon="sort"/>
+              </th>
+              <th className="hand" onClick={sort('bookId')}>
+                <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryNotificationNotification.bookId">Book
+                  Id</Translate>{' '}
+                <FontAwesomeIcon icon="sort"/>
+              </th>
+              <th/>
+            </tr>
             </thead>
             <tbody>
-              {notificationList.map((notification, i) => (
-                <tr key={`entity-${i}`}>
-                  <td>
-                    <Button tag={Link} to={`${match.url}/${notification.id}`} color="link" size="sm">
-                      {notification.id}
-                    </Button>
-                  </td>
-                  <td>
-                    <TextFormat type="date" value={notification.sentDate} format={APP_DATE_FORMAT} />
-                  </td>
-                  <td>
-                    <Translate contentKey={`kacetalLibraryGatewayApp.NotificationType.${notification.format}`} />
-                  </td>
-                  <td>{notification.details}</td>
-                  <td>{notification.userId}</td>
-                  <td>{notification.bookId}</td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${notification.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
+            {notificationList.map((notification, i) => (
+              <tr key={`entity-${i}`}>
+                <td>
+                  <Button tag={Link} to={`${match.url}/${notification.id}`} color="link" size="sm">
+                    {notification.id}
+                  </Button>
+                </td>
+                <td>
+                  <TextFormat type="date" value={notification.sentDate} format={APP_DATE_FORMAT}/>
+                </td>
+                <td>
+                  <Translate contentKey={`kacetalLibraryGatewayApp.NotificationType.${notification.format}`}/>
+                </td>
+                <td>{notification.details}</td>
+                <td>{notification.userId}</td>
+                <td>{notification.bookId}</td>
+                <td className="text-right">
+                  <div className="btn-group flex-btn-group-container">
+                    <Button tag={Link} to={`${match.url}/${notification.id}`} color="info" size="sm">
+                      <FontAwesomeIcon icon="eye"/>{' '}
+                      <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.view">View</Translate>
                         </span>
-                      </Button>
-                      <Button
-                        tag={Link}
-                        to={`${match.url}/${notification.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="primary"
-                        size="sm"
-                      >
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
+                    </Button>
+                    <Button
+                      tag={Link}
+                      to={`${match.url}/${notification.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                      color="primary"
+                      size="sm"
+                    >
+                      <FontAwesomeIcon icon="pencil-alt"/>{' '}
+                      <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.edit">Edit</Translate>
                         </span>
-                      </Button>
-                      <Button
-                        tag={Link}
-                        to={`${match.url}/${notification.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="danger"
-                        size="sm"
-                      >
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
+                    </Button>
+                    <Button
+                      tag={Link}
+                      to={`${match.url}/${notification.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                      color="danger"
+                      size="sm"
+                    >
+                      <FontAwesomeIcon icon="trash"/>{' '}
+                      <span className="d-none d-md-inline">
                           <Translate contentKey="entity.action.delete">Delete</Translate>
                         </span>
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+            ))}
             </tbody>
           </Table>
         ) : (
@@ -156,7 +162,8 @@ export const Notification = (props: INotificationProps) => {
       </div>
       <div className={notificationList && notificationList.length > 0 ? '' : 'd-none'}>
         <Row className="justify-content-center">
-          <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage} i18nEnabled />
+          <JhiItemCount page={paginationState.activePage} total={totalItems} itemsPerPage={paginationState.itemsPerPage}
+                        i18nEnabled/>
         </Row>
         <Row className="justify-content-center">
           <JhiPagination
@@ -172,7 +179,7 @@ export const Notification = (props: INotificationProps) => {
   );
 };
 
-const mapStateToProps = ({ notification }: IRootState) => ({
+const mapStateToProps = ({notification}: IRootState) => ({
   notificationList: notification.entities,
   totalItems: notification.totalItems
 });

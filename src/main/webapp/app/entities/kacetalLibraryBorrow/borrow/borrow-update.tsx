@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IRootState } from 'app/shared/reducers';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Label, Row} from 'reactstrap';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
 
-import { getEntity, updateEntity, createEntity, reset } from './borrow.reducer';
-import { IBorrow } from 'app/shared/model/kacetalLibraryBorrow/borrow.model';
-import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
+import {createEntity, getEntity, reset, updateEntity} from './borrow.reducer';
 
-export interface IBorrowUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IBorrowUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const BorrowUpdate = (props: IBorrowUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { borrowEntity, loading, updating } = props;
+  const {borrowEntity, loading, updating} = props;
 
   const handleClose = () => {
     props.history.push('/borrow' + props.location.search);
@@ -74,7 +72,7 @@ export const BorrowUpdate = (props: IBorrowUpdateProps) => {
                   <Label for="borrow-id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvInput id="borrow-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput id="borrow-id" type="text" className="form-control" name="id" required readOnly/>
                 </AvGroup>
               ) : null}
               <AvGroup>
@@ -87,8 +85,8 @@ export const BorrowUpdate = (props: IBorrowUpdateProps) => {
                   className="form-control"
                   name="bookId"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    number: {value: true, errorMessage: translate('entity.validation.number')}
                   }}
                 />
               </AvGroup>
@@ -102,27 +100,29 @@ export const BorrowUpdate = (props: IBorrowUpdateProps) => {
                   className="form-control"
                   name="userId"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    number: {value: true, errorMessage: translate('entity.validation.number')}
                   }}
                 />
               </AvGroup>
               <AvGroup>
                 <Label id="borrowDurationLabel" for="borrow-borrowDuration">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.borrowDuration">Borrow Duration</Translate>
+                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.borrowDuration">Borrow
+                    Duration</Translate>
                 </Label>
                 <AvField
                   id="borrow-borrowDuration"
                   type="text"
                   name="borrowDuration"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') }
+                    required: {value: true, errorMessage: translate('entity.validation.required')}
                   }}
                 />
               </AvGroup>
               <AvGroup>
                 <Label id="borrowStatusLabel" for="borrow-borrowStatus">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.borrowStatus">Borrow Status</Translate>
+                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.borrowStatus">Borrow
+                    Status</Translate>
                 </Label>
                 <AvInput
                   id="borrow-borrowStatus"
@@ -141,20 +141,22 @@ export const BorrowUpdate = (props: IBorrowUpdateProps) => {
               </AvGroup>
               <AvGroup>
                 <Label id="notificationTypeLabel" for="borrow-notificationType">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.notificationType">Notification Type</Translate>
+                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.notificationType">Notification
+                    Type</Translate>
                 </Label>
                 <AvField
                   id="borrow-notificationType"
                   type="text"
                   name="notificationType"
                   validate={{
-                    maxLength: { value: 50, errorMessage: translate('entity.validation.maxlength', { max: 50 }) }
+                    maxLength: {value: 50, errorMessage: translate('entity.validation.maxlength', {max: 50})}
                   }}
                 />
               </AvGroup>
               <AvGroup>
                 <Label id="prolongedLabel" for="borrow-prolonged">
-                  <Translate contentKey="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.prolonged">Prolonged</Translate>
+                  <Translate
+                    contentKey="kacetalLibraryGatewayApp.kacetalLibraryBorrowBorrow.prolonged">Prolonged</Translate>
                 </Label>
                 <AvField
                   id="borrow-prolonged"
@@ -162,14 +164,14 @@ export const BorrowUpdate = (props: IBorrowUpdateProps) => {
                   className="form-control"
                   name="prolonged"
                   validate={{
-                    min: { value: 0, errorMessage: translate('entity.validation.min', { min: 0 }) },
-                    max: { value: 3, errorMessage: translate('entity.validation.max', { max: 3 }) },
-                    number: { value: true, errorMessage: translate('entity.validation.number') }
+                    min: {value: 0, errorMessage: translate('entity.validation.min', {min: 0})},
+                    max: {value: 3, errorMessage: translate('entity.validation.max', {max: 3})},
+                    number: {value: true, errorMessage: translate('entity.validation.number')}
                   }}
                 />
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/borrow" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
@@ -177,7 +179,7 @@ export const BorrowUpdate = (props: IBorrowUpdateProps) => {
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
+                <FontAwesomeIcon icon="save"/>
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>

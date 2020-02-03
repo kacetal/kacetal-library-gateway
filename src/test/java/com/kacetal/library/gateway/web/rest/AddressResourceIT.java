@@ -5,7 +5,6 @@ import com.kacetal.library.gateway.domain.Address;
 import com.kacetal.library.gateway.repository.AddressRepository;
 import com.kacetal.library.gateway.service.AddressService;
 import com.kacetal.library.gateway.web.rest.errors.ExceptionTranslator;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -25,8 +24,13 @@ import java.util.List;
 import static com.kacetal.library.gateway.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Integration tests for the {@link AddressResource} REST controller.
@@ -74,21 +78,9 @@ public class AddressResourceIT {
 
     private Address address;
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final AddressResource addressResource = new AddressResource(addressService);
-        this.restAddressMockMvc = MockMvcBuilders.standaloneSetup(addressResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
-
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -101,9 +93,10 @@ public class AddressResourceIT {
         address.setCountry(DEFAULT_COUNTRY);
         return address;
     }
+
     /**
      * Create an updated entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -115,6 +108,18 @@ public class AddressResourceIT {
         address.setCity(UPDATED_CITY);
         address.setCountry(UPDATED_COUNTRY);
         return address;
+    }
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final AddressResource addressResource = new AddressResource(addressService);
+        this.restAddressMockMvc = MockMvcBuilders.standaloneSetup(addressResource)
+            .setCustomArgumentResolvers(pageableArgumentResolver)
+            .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
+            .setMessageConverters(jacksonMessageConverter)
+            .setValidator(validator).build();
     }
 
     @BeforeEach
@@ -181,7 +186,7 @@ public class AddressResourceIT {
             .andExpect(jsonPath("$.[*].city").value(hasItem(DEFAULT_CITY)))
             .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY)));
     }
-    
+
     @Test
     @Transactional
     public void getAddress() throws Exception {
@@ -214,7 +219,7 @@ public class AddressResourceIT {
         // Initialize the database
         addressService.save(address);
 
-        int databaseSizeBeforeUpdate = addressRepository.findAll().size();
+        final int databaseSizeBeforeUpdate = addressRepository.findAll().size();
 
         // Update the address
         Address updatedAddress = addressRepository.findById(address.getId()).get();

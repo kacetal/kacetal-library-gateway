@@ -1,12 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Translate } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Badge, Table, Button } from 'reactstrap';
+import {connect} from 'react-redux';
+import {Translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {Badge, Button, Table} from 'reactstrap';
 
-import { gatewayRoutes } from '../administration.reducer';
+import {gatewayRoutes} from '../administration.reducer';
 
-export interface IGatewayPageProps extends StateProps, DispatchProps {}
+export interface IGatewayPageProps extends StateProps, DispatchProps {
+}
 
 export class GatewayPage extends React.Component<IGatewayPageProps> {
   componentDidMount() {
@@ -47,17 +48,17 @@ export class GatewayPage extends React.Component<IGatewayPageProps> {
       return (
         <Table striped responsive>
           <tbody>
-            {route.serviceInstances.map((instance, i) => (
-              <tr key={instance.instanceInfo + '-info'}>
-                <td>
-                  <a href={instance.uri} target="_blank" rel="noopener noreferrer">
-                    {instance.uri}
-                  </a>
-                </td>
-                <td>{this.badgeInfo(instance.instanceInfo)}</td>
-                <td>{this.metadata(instance.metadata)}</td>
-              </tr>
-            ))}
+          {route.serviceInstances.map((instance, i) => (
+            <tr key={instance.instanceInfo + '-info'}>
+              <td>
+                <a href={instance.uri} target="_blank" rel="noopener noreferrer">
+                  {instance.uri}
+                </a>
+              </td>
+              <td>{this.badgeInfo(instance.instanceInfo)}</td>
+              <td>{this.metadata(instance.metadata)}</td>
+            </tr>
+          ))}
           </tbody>
         </Table>
       );
@@ -71,13 +72,13 @@ export class GatewayPage extends React.Component<IGatewayPageProps> {
   };
 
   render() {
-    const { routes, isFetching } = this.props;
+    const {routes, isFetching} = this.props;
     return (
       <div>
         <h2>Gateway</h2>
         <p>
           <Button onClick={this.gatewayRoutes} color={isFetching ? 'danger' : 'primary'} disabled={isFetching}>
-            <FontAwesomeIcon icon="sync" />
+            <FontAwesomeIcon icon="sync"/>
             &nbsp;
             <Translate component="span" contentKey="health.refresh.button">
               Refresh
@@ -87,26 +88,26 @@ export class GatewayPage extends React.Component<IGatewayPageProps> {
 
         <Table striped responsive>
           <thead>
-            <tr key="header">
-              <th>
-                <Translate contentKey="gateway.routes.url">URL</Translate>
-              </th>
-              <th>
-                <Translate contentKey="gateway.routes.service">Service</Translate>
-              </th>
-              <th>
-                <Translate contentKey="gateway.routes.servers">Available servers</Translate>
-              </th>
-            </tr>
+          <tr key="header">
+            <th>
+              <Translate contentKey="gateway.routes.url">URL</Translate>
+            </th>
+            <th>
+              <Translate contentKey="gateway.routes.service">Service</Translate>
+            </th>
+            <th>
+              <Translate contentKey="gateway.routes.servers">Available servers</Translate>
+            </th>
+          </tr>
           </thead>
           <tbody>
-            {routes.map((route, i) => (
-              <tr key={`routes-${i}`}>
-                <td>{route.path}</td>
-                <td>{route.serviceId}</td>
-                <td>{this.instanceInfo(route)}</td>
-              </tr>
-            ))}
+          {routes.map((route, i) => (
+            <tr key={`routes-${i}`}>
+              <td>{route.path}</td>
+              <td>{route.serviceId}</td>
+              <td>{this.instanceInfo(route)}</td>
+            </tr>
+          ))}
           </tbody>
         </Table>
       </div>
@@ -120,7 +121,7 @@ const mapStateToProps = storeState => ({
   isFetching: storeState.administration.loading
 });
 
-const mapDispatchToProps = { gatewayRoutes };
+const mapDispatchToProps = {gatewayRoutes};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

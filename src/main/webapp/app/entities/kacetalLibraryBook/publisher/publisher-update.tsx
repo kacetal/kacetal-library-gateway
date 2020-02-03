@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Link, RouteComponentProps } from 'react-router-dom';
-import { Button, Row, Col, Label } from 'reactstrap';
-import { AvFeedback, AvForm, AvGroup, AvInput, AvField } from 'availity-reactstrap-validation';
-import { Translate, translate, ICrudGetAction, ICrudGetAllAction, ICrudPutAction } from 'react-jhipster';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IRootState } from 'app/shared/reducers';
+import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
+import {Link, RouteComponentProps} from 'react-router-dom';
+import {Button, Col, Label, Row} from 'reactstrap';
+import {AvField, AvForm, AvGroup, AvInput} from 'availity-reactstrap-validation';
+import {Translate, translate} from 'react-jhipster';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {IRootState} from 'app/shared/reducers';
 
-import { getEntity, updateEntity, createEntity, reset } from './publisher.reducer';
-import { IPublisher } from 'app/shared/model/kacetalLibraryBook/publisher.model';
-import { convertDateTimeFromServer, convertDateTimeToServer } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
+import {createEntity, getEntity, reset, updateEntity} from './publisher.reducer';
 
-export interface IPublisherUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
+export interface IPublisherUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {
+}
 
 export const PublisherUpdate = (props: IPublisherUpdateProps) => {
   const [isNew, setIsNew] = useState(!props.match.params || !props.match.params.id);
 
-  const { publisherEntity, loading, updating } = props;
+  const {publisherEntity, loading, updating} = props;
 
   const handleClose = () => {
     props.history.push('/publisher' + props.location.search);
@@ -74,7 +72,7 @@ export const PublisherUpdate = (props: IPublisherUpdateProps) => {
                   <Label for="publisher-id">
                     <Translate contentKey="global.field.id">ID</Translate>
                   </Label>
-                  <AvInput id="publisher-id" type="text" className="form-control" name="id" required readOnly />
+                  <AvInput id="publisher-id" type="text" className="form-control" name="id" required readOnly/>
                 </AvGroup>
               ) : null}
               <AvGroup>
@@ -86,13 +84,13 @@ export const PublisherUpdate = (props: IPublisherUpdateProps) => {
                   type="text"
                   name="name"
                   validate={{
-                    required: { value: true, errorMessage: translate('entity.validation.required') },
-                    maxLength: { value: 50, errorMessage: translate('entity.validation.maxlength', { max: 50 }) }
+                    required: {value: true, errorMessage: translate('entity.validation.required')},
+                    maxLength: {value: 50, errorMessage: translate('entity.validation.maxlength', {max: 50})}
                   }}
                 />
               </AvGroup>
               <Button tag={Link} id="cancel-save" to="/publisher" replace color="info">
-                <FontAwesomeIcon icon="arrow-left" />
+                <FontAwesomeIcon icon="arrow-left"/>
                 &nbsp;
                 <span className="d-none d-md-inline">
                   <Translate contentKey="entity.action.back">Back</Translate>
@@ -100,7 +98,7 @@ export const PublisherUpdate = (props: IPublisherUpdateProps) => {
               </Button>
               &nbsp;
               <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                <FontAwesomeIcon icon="save" />
+                <FontAwesomeIcon icon="save"/>
                 &nbsp;
                 <Translate contentKey="entity.action.save">Save</Translate>
               </Button>

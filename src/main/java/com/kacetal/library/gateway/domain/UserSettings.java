@@ -1,9 +1,18 @@
 package com.kacetal.library.gateway.domain;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,8 +50,8 @@ public class UserSettings implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "user_settings_addresses",
-               joinColumns = @JoinColumn(name = "user_settings_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "addresses_id", referencedColumnName = "id"))
+        joinColumns = @JoinColumn(name = "user_settings_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "addresses_id", referencedColumnName = "id"))
     private Set<Address> addresses = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -123,7 +132,7 @@ public class UserSettings implements Serializable {
     public String toString() {
         return "UserSettings{" +
             "id=" + getId() +
-            ", avatar='" + getAvatar() + "'" +
+            ", avatar='" + Arrays.toString(getAvatar()) + "'" +
             ", avatarContentType='" + getAvatarContentType() + "'" +
             ", mobilePhone='" + getMobilePhone() + "'" +
             ", borrowLimit=" + getBorrowLimit() +
