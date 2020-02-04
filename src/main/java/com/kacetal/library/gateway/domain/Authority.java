@@ -1,5 +1,9 @@
 package com.kacetal.library.gateway.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,6 +16,9 @@ import java.util.Objects;
 /**
  * An authority (a security role) used by Spring Security.
  */
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "jhi_authority")
 public class Authority implements Serializable {
@@ -23,14 +30,6 @@ public class Authority implements Serializable {
     @Id
     @Column(length = 50)
     private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -46,12 +45,5 @@ public class Authority implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(name);
-    }
-
-    @Override
-    public String toString() {
-        return "Authority{" +
-            "name='" + name + '\'' +
-            "}";
     }
 }

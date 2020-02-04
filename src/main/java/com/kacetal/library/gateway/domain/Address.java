@@ -1,6 +1,9 @@
 package com.kacetal.library.gateway.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +21,9 @@ import java.util.Set;
 /**
  * A Address.
  */
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "address")
 public class Address implements Serializable {
@@ -48,66 +54,8 @@ public class Address implements Serializable {
     private String country;
 
     @ManyToMany(mappedBy = "addresses")
-    @JsonIgnore
+    @JsonIgnoreProperties("addresses")
     private Set<UserSettings> userSettings = new HashSet<>();
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getAddressLine1() {
-        return addressLine1;
-    }
-
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
-    }
-
-    public String getAddressLine2() {
-        return addressLine2;
-    }
-
-    public void setAddressLine2(String addressLine2) {
-        this.addressLine2 = addressLine2;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public Set<UserSettings> getUserSettings() {
-        return userSettings;
-    }
-
-    public void setUserSettings(Set<UserSettings> userSettings) {
-        this.userSettings = userSettings;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -123,17 +71,5 @@ public class Address implements Serializable {
     @Override
     public int hashCode() {
         return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "Address{" +
-            "id=" + getId() +
-            ", addressLine1='" + getAddressLine1() + "'" +
-            ", addressLine2='" + getAddressLine2() + "'" +
-            ", zipCode='" + getZipCode() + "'" +
-            ", city='" + getCity() + "'" +
-            ", country='" + getCountry() + "'" +
-            "}";
     }
 }

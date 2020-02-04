@@ -1,5 +1,10 @@
 package com.kacetal.library.gateway.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,13 +17,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * A UserSettings.
  */
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "user_settings")
 public class UserSettings implements Serializable {
@@ -43,7 +50,6 @@ public class UserSettings implements Serializable {
     private Integer borrowLimit;
 
     @OneToOne
-
     @MapsId
     @JoinColumn(name = "id")
     private User user;
@@ -52,65 +58,8 @@ public class UserSettings implements Serializable {
     @JoinTable(name = "user_settings_addresses",
         joinColumns = @JoinColumn(name = "user_settings_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "addresses_id", referencedColumnName = "id"))
+    @JsonIgnoreProperties("userSettings")
     private Set<Address> addresses = new HashSet<>();
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public byte[] getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getAvatarContentType() {
-        return avatarContentType;
-    }
-
-    public void setAvatarContentType(String avatarContentType) {
-        this.avatarContentType = avatarContentType;
-    }
-
-    public String getMobilePhone() {
-        return mobilePhone;
-    }
-
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
-    }
-
-    public Integer getBorrowLimit() {
-        return borrowLimit;
-    }
-
-    public void setBorrowLimit(Integer borrowLimit) {
-        this.borrowLimit = borrowLimit;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -126,16 +75,5 @@ public class UserSettings implements Serializable {
     @Override
     public int hashCode() {
         return 31;
-    }
-
-    @Override
-    public String toString() {
-        return "UserSettings{" +
-            "id=" + getId() +
-            ", avatar='" + Arrays.toString(getAvatar()) + "'" +
-            ", avatarContentType='" + getAvatarContentType() + "'" +
-            ", mobilePhone='" + getMobilePhone() + "'" +
-            ", borrowLimit=" + getBorrowLimit() +
-            "}";
     }
 }
